@@ -1,0 +1,102 @@
+import java.awt.EventQueue;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import java.awt.Panel;
+import java.awt.Color;
+import javax.swing.JLabel;
+import java.awt.Font;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import java.awt.Toolkit;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class ChoosingForm extends JFrame {
+
+    private JPanel contentPane;
+
+    public static void main(String[] args) {
+        EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    ChoosingForm frame = new ChoosingForm();
+                    frame.setVisible(true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    public ChoosingForm() {
+        setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\63963\\Downloads\\Screenshot_23-10-2024_153957_wepik.com.jpeg"));
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setBounds(100, 100, 812, 468);
+        contentPane = new JPanel();
+        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        setContentPane(contentPane);
+        contentPane.setLayout(null);
+
+        Panel panel = new Panel();
+        panel.setBackground(Color.LIGHT_GRAY);
+        panel.setBounds(-11, 0, 820, 441);
+        contentPane.add(panel);
+        panel.setLayout(null);
+
+        Panel panel_1 = new Panel();
+        panel_1.setBackground(new Color(0, 0, 206));
+        panel_1.setBounds(10, 0, 800, 73);
+        panel.add(panel_1);
+        panel_1.setLayout(null);
+
+        JLabel lblNewLabel_1 = new JLabel("CITYPROV EXPRESS");
+        lblNewLabel_1.setBounds(205, 10, 474, 58);
+        panel_1.add(lblNewLabel_1);
+        lblNewLabel_1.setForeground(new Color(255, 255, 255));
+        lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 40));
+
+        JLabel lblNewLabel = new JLabel("ON TIME EVERYTIME");
+        lblNewLabel.setBounds(203, 67, 474, 58);
+        panel.add(lblNewLabel);
+        lblNewLabel.setForeground(new Color(0, 0, 160));
+        lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 40));
+
+        JLabel lblNewLabel_2 = new JLabel("");
+        lblNewLabel_2.setIcon(new ImageIcon("C:\\Users\\63963\\Downloads\\Screenshot_23-10-2024_153957_wepik.com.jpeg"));
+        lblNewLabel_2.setBounds(331, 135, 131, 124);
+        panel.add(lblNewLabel_2);
+
+        // "ADD PASSENGER" button with action to open PassengerForm
+        JButton btnNewButton = new JButton("ADD PASSENGER");
+        btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 13));
+        btnNewButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Create and display the PassengerForm
+                PassengerForm passengerForm = new PassengerForm();
+                passengerForm.setVisible(true);
+                dispose();
+            }
+        });
+        
+        
+        btnNewButton.setBackground(Color.WHITE);
+        btnNewButton.setForeground(Color.BLACK);
+        btnNewButton.setBounds(49, 326, 208, 58);
+        panel.add(btnNewButton);
+
+        JButton btnViewSeats = new JButton("VIEW SEATS");
+        btnViewSeats.setFont(new Font("Tahoma", Font.BOLD, 13));
+        btnViewSeats.setBackground(Color.WHITE);
+        btnViewSeats.setForeground(Color.BLACK);
+        btnViewSeats.setBounds(296, 326, 208, 58);
+        panel.add(btnViewSeats);
+
+        JButton btnSearch = new JButton("SEARCH");
+        btnSearch.setFont(new Font("Tahoma", Font.BOLD, 13));
+        btnSearch.setBackground(Color.WHITE);
+        btnSearch.setForeground(Color.BLACK);
+        btnSearch.setBounds(551, 326, 208, 58);
+        panel.add(btnSearch);
+    }
+}
