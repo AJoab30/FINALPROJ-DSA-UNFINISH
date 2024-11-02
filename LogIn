@@ -1,0 +1,128 @@
+import java.awt.EventQueue;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import java.awt.Color;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import java.awt.Font;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import javax.swing.ImageIcon;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JPasswordField;
+
+public class Login extends JFrame {
+
+    private JPanel contentPane;
+    private JTextField textField;
+    private JPasswordField passwordField;
+
+    /**
+     * Launch the application.
+     */
+    public static void main(String[] args) {
+        EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    Login frame = new Login();
+                    frame.setVisible(true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    /**
+     * Create the frame.
+     */
+    public Login() {
+        setTitle("CITYPROV EXPRESS");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setBounds(100, 100, 1037, 585);
+        contentPane = new JPanel();
+        contentPane.setBackground(Color.LIGHT_GRAY);
+        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+        setContentPane(contentPane);
+        contentPane.setLayout(null);
+        
+        JPanel panel = new JPanel();
+        panel.setBackground(new Color(0, 0, 206));
+        panel.setBounds(0, 0, 462, 548);
+        contentPane.add(panel);
+        panel.setLayout(null);
+        
+        JLabel lblRequirement = new JLabel("REQUIREMENT");
+        lblRequirement.setForeground(Color.BLACK);
+        lblRequirement.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 45));
+        lblRequirement.setBounds(49, 276, 356, 65);
+        panel.add(lblRequirement);
+        
+        JLabel lblSecurity = new JLabel("SECURITY");
+        lblSecurity.setForeground(Color.WHITE);
+        lblSecurity.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 50));
+        lblSecurity.setBounds(49, 219, 299, 65);
+        panel.add(lblSecurity);
+        
+        JLabel lblNewLabel = new JLabel("USERNAME:");
+        lblNewLabel.setForeground(Color.BLACK);
+        lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 17));
+        lblNewLabel.setBounds(506, 239, 108, 24);
+        contentPane.add(lblNewLabel);
+        
+        textField = new JTextField();
+        textField.setColumns(10);
+        textField.setBounds(506, 273, 425, 32);
+        contentPane.add(textField);
+        
+        JLabel lblPassword = new JLabel("PASSWORD:");
+        lblPassword.setForeground(Color.BLACK);
+        lblPassword.setFont(new Font("Tahoma", Font.BOLD, 17));
+        lblPassword.setBounds(506, 333, 108, 24);
+        contentPane.add(lblPassword);
+        
+        passwordField = new JPasswordField();
+        passwordField.setBounds(506, 367, 425, 32);
+        contentPane.add(passwordField);
+        
+        JButton btnNewButton = new JButton("LOG IN");
+        btnNewButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String username = textField.getText();
+                String password = passwordField.getText();
+
+                // Stored credentials
+                String storedUsername = "administrator";
+                String storedPassword = "treegrow";
+
+                // Check if entered credentials match stored credentials
+                if (username.equals(storedUsername) && password.equals(storedPassword)) {
+                    JOptionPane.showMessageDialog(null, "Login Successful!");
+                    
+                    // Open ChoosingForm and close the Login window
+                    ChoosingForm choosingForm = new ChoosingForm();
+                    choosingForm.setVisible(true);
+                    dispose(); // Close the Login window
+                } else {
+                    JOptionPane.showMessageDialog(null, "Invalid Username or Password.", "Login Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+        btnNewButton.setForeground(Color.BLACK);
+        btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 20));
+        btnNewButton.setBackground(Color.WHITE);
+        btnNewButton.setBounds(662, 429, 108, 49);
+        contentPane.add(btnNewButton);
+        
+        JLabel lblNewLabel_1 = new JLabel("");
+        lblNewLabel_1.setToolTipText("");
+        lblNewLabel_1.setIcon(new ImageIcon("C:\\Users\\63963\\Downloads\\Screenshot_23-10-2024_153957_wepik.com.jpeg"));
+        lblNewLabel_1.setBounds(662, 71, 131, 130);
+        contentPane.add(lblNewLabel_1);
+        
+        
+    }
+}
