@@ -79,6 +79,7 @@ public class ChoosingForm extends JFrame {
             }
         });
         
+
         
         btnNewButton.setBackground(Color.WHITE);
         btnNewButton.setForeground(Color.BLACK);
@@ -97,6 +98,7 @@ public class ChoosingForm extends JFrame {
         btnSearch.setBackground(Color.WHITE);
         btnSearch.setForeground(Color.BLACK);
         btnSearch.setBounds(551, 326, 208, 58);
-        panel.add(btnSearch);
+        panel.add(btnSearch);   
     }
+    
 }
