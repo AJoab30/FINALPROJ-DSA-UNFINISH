@@ -167,7 +167,7 @@ public class PassengerForm extends JFrame {
         JButton btnSearch = new JButton("SEARCH");
         btnSearch.setFont(new Font("Tahoma", Font.BOLD, 12));
         btnSearch.setBackground(Color.WHITE);
-        btnSearch.setBounds(132, 459, 133, 32);
+        btnSearch.setBounds(132, 466, 133, 32);
         panel.add(btnSearch);
         
      // Legend Panel
@@ -224,12 +224,69 @@ public class PassengerForm extends JFrame {
         
         JButton btnfinish = new JButton("FINISH");
         btnfinish.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		ChoosingForm choosingForm = new ChoosingForm();
-                choosingForm.setVisible(true);
-                dispose();
-        	}
+            public void actionPerformed(ActionEvent e) {
+                if (model.getRowCount() > 0) {
+                    // Create a new table for the popup with the same model as the main table
+                    JTable popupTable = new JTable(model);
+                    JScrollPane scrollPane = new JScrollPane(popupTable);
+                    scrollPane.setPreferredSize(new java.awt.Dimension(500, 200));
+
+                    // Show the table in a JOptionPane
+                    JOptionPane.showMessageDialog(
+                        null,
+                        scrollPane,
+                        "Passenger List",
+                        JOptionPane.INFORMATION_MESSAGE
+                        
+                        
+                    );
+                } else {
+                    JOptionPane.showMessageDialog(
+                        null,
+                        "No passengers added.",
+                        "Passenger List",
+                        JOptionPane.WARNING_MESSAGE
+                    );
+                }
+                showPassengerSummary();
+                
+            }
+            private void showPassengerSummary() {
+                // Count categories
+                int seniorCount = 0;
+                int pwdCount = 0;
+                int regularCount = 0;
+
+                for (int i = 0; i < model.getRowCount(); i++) {
+                    String category = model.getValueAt(i, 2).toString(); // CATEGORY column
+                    switch (category) {
+                        case "SENIOR CITIZEN":
+                            seniorCount++;
+                            break;
+                        case "PWD":
+                            pwdCount++;
+                            break;
+                        case "REGULAR":
+                            regularCount++;
+                            break;
+                    }
+                }
+
+                // Create summary message
+                String summary = String.format("Summary of Passengers:\n\n" +
+                        "%d Senior Citizens\n" +
+                        "%d PWD\n" +
+                        "%d Regular Passengers", seniorCount, pwdCount, regularCount);
+
+                // Show summary in a dialog
+                JOptionPane.showMessageDialog(PassengerForm.this, summary, "Passenger Summary", JOptionPane.INFORMATION_MESSAGE);
+            }
+
         });
+        
+        
+        
+
         btnfinish.setFont(new Font("Tahoma", Font.BOLD, 12));
         btnfinish.setBackground(Color.WHITE);
         btnfinish.setBounds(425, 466, 133, 32);
@@ -318,6 +375,12 @@ public class PassengerForm extends JFrame {
                 JOptionPane.showMessageDialog(this, "Please select a passenger to remove.", "Remove Passenger", JOptionPane.WARNING_MESSAGE);
             }
         });
+        
+        //Now open ChoosingForm without disposing the current form
+        	ChoosingForm choosingForm = new ChoosingForm();
+        	choosingForm.setVisible(true);
+        
+        
 
     }
 }
