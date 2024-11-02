@@ -1,0 +1,323 @@
+import java.awt.EventQueue;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import java.awt.Color;
+import java.awt.Component;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import java.awt.Font;
+import javax.swing.DefaultListCellRenderer;
+import javax.swing.JComboBox;
+import javax.swing.JButton;
+import java.awt.Toolkit;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class PassengerForm extends JFrame {
+
+    private JPanel contentPane;
+    private JTable table_1;
+    DefaultTableModel model;
+    private JTextField textFieldname;
+    private JTextField textFieldage;
+    private JTextField textFieldsearch;
+
+    public static void main(String[] args) {
+        EventQueue.invokeLater(() -> {
+            try {
+                PassengerForm frame = new PassengerForm();
+                frame.setVisible(true);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
+    
+    
+
+    public PassengerForm() {
+        setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\63963\\Downloads\\Screenshot_23-10-2024_153957_wepik.com.jpeg"));
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setBounds(100, 100, 908, 570);
+        contentPane = new JPanel();
+        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        setContentPane(contentPane);
+        contentPane.setLayout(null);
+        
+        JPanel panel = new JPanel();
+        panel.setBackground(Color.LIGHT_GRAY);
+        panel.setBounds(0, 0, 894, 533);
+        contentPane.add(panel);
+        panel.setLayout(null);
+        
+        // Initialize table and model
+        table_1 = new JTable();
+        model = new DefaultTableModel();
+        
+        // Define columns
+        Object[] column = {"NAME", "AGE", "CATEGORY", "DESTINATION", "SEAT NUMBER"};
+        model.setColumnIdentifiers(column);
+        
+        // Set model to the table
+        table_1.setModel(model);
+        
+        // Add JScrollPane to ensure proper table visibility
+        JScrollPane scrollPane = new JScrollPane(table_1);
+        scrollPane.setBounds(10, 10, 652, 287);
+        panel.add(scrollPane);
+        
+        JLabel lblName = new JLabel("NAME: ");
+        lblName.setFont(new Font("Tahoma", Font.BOLD, 15));
+        lblName.setBounds(10, 296, 62, 48);
+        panel.add(lblName);
+        
+        JLabel lblAge = new JLabel("AGE:");
+        lblAge.setFont(new Font("Tahoma", Font.BOLD, 15));
+        lblAge.setBounds(10, 354, 62, 48);
+        panel.add(lblAge);
+        
+        textFieldname = new JTextField();
+        textFieldname.setBounds(84, 307, 222, 32);
+        panel.add(textFieldname);
+        textFieldname.setColumns(10);
+        
+        textFieldage = new JTextField();
+        textFieldage.setColumns(10);
+        textFieldage.setBounds(84, 363, 222, 32);
+        panel.add(textFieldage);
+        
+        JLabel lblCategory = new JLabel("CATEGORY:");
+        lblCategory.setFont(new Font("Tahoma", Font.BOLD, 15));
+        lblCategory.setBounds(335, 354, 101, 48);
+        panel.add(lblCategory);
+        
+        JLabel lblDestination = new JLabel("DESTINATION:");
+        lblDestination.setFont(new Font("Tahoma", Font.BOLD, 15));
+        lblDestination.setBounds(325, 296, 121, 48);
+        panel.add(lblDestination);
+        
+        JComboBox<String> comboBox = new JComboBox<>();
+        comboBox.setForeground(new Color(0, 0, 0));
+        comboBox.setFont(new Font("Tahoma", Font.BOLD, 20));
+        comboBox.setBounds(440, 306, 222, 32);
+        panel.add(comboBox);
+        
+        comboBox.addItem("APALIT");
+        comboBox.addItem("CALUMPIT");
+        comboBox.addItem("MALOLOS");
+        comboBox.addItem("BOCAUE");
+        
+        comboBox.setRenderer(new DefaultListCellRenderer() {
+            @Override
+            public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+                JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                label.setHorizontalAlignment(CENTER);
+                return label;
+            }
+        });
+        
+        JComboBox<String> comboBox_1 = new JComboBox<>();
+        comboBox_1.setForeground(new Color(0, 0, 0));
+        comboBox_1.setFont(new Font("Tahoma", Font.BOLD, 20));
+        comboBox_1.setBounds(440, 360, 222, 32);
+        panel.add(comboBox_1);
+        
+        comboBox_1.addItem("SENIOR CITIZEN");
+        comboBox_1.addItem("PWD");
+        comboBox_1.addItem("REGULAR");
+        
+        comboBox_1.setRenderer(new DefaultListCellRenderer() {
+            @Override
+            public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+                JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                label.setHorizontalAlignment(CENTER);
+                return label;
+            }
+        });
+        
+        JButton btnaddseat = new JButton("ADD TO SEAT");
+        btnaddseat.setFont(new Font("Tahoma", Font.BOLD, 12));
+        btnaddseat.setBackground(Color.WHITE);
+        btnaddseat.setBounds(323, 412, 149, 42);
+        panel.add(btnaddseat);
+        
+        JButton btnRemoveToSeats = new JButton("REMOVE PASSENGER");
+       
+        btnRemoveToSeats.setFont(new Font("Tahoma", Font.BOLD, 12));
+        btnRemoveToSeats.setBackground(Color.WHITE);
+        btnRemoveToSeats.setBounds(494, 412, 168, 42);
+        panel.add(btnRemoveToSeats);
+        
+        JLabel lblSearch = new JLabel("SEARCH:");
+        lblSearch.setFont(new Font("Tahoma", Font.BOLD, 15));
+        lblSearch.setBounds(10, 412, 69, 48);
+        panel.add(lblSearch);
+        
+        textFieldsearch = new JTextField();
+        textFieldsearch.setColumns(10);
+        textFieldsearch.setBounds(84, 417, 222, 32);
+        panel.add(textFieldsearch);
+        
+        JButton btnSearch = new JButton("SEARCH");
+        btnSearch.setFont(new Font("Tahoma", Font.BOLD, 12));
+        btnSearch.setBackground(Color.WHITE);
+        btnSearch.setBounds(132, 459, 133, 32);
+        panel.add(btnSearch);
+        
+     // Legend Panel
+        JPanel legendPanel1 = new JPanel();
+        legendPanel1.setLayout(null);
+        legendPanel1.setBounds(670, 10, 150, 287);
+        legendPanel1.setBorder(new EmptyBorder(5, 5, 5, 5));
+        legendPanel1.setBackground(Color.WHITE);
+        panel.add(legendPanel1);
+
+        // Title for the legend
+        JLabel legendTitle = new JLabel("Legend");
+        legendTitle.setFont(new Font("Tahoma", Font.BOLD, 15));
+        legendTitle.setBounds(40, 10, 100, 25);
+        legendPanel1.add(legendTitle);
+
+        // Explanation for Seat Identifier
+        JLabel seatIdLabel = new JLabel("Seat ID:");
+        seatIdLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        seatIdLabel.setBounds(10, 40, 80, 25);
+        legendPanel1.add(seatIdLabel);
+
+        JLabel seatIdFormat = new JLabel("XXY##");
+        seatIdFormat.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        seatIdFormat.setBounds(70, 40, 80, 25);
+        legendPanel1.add(seatIdFormat);
+
+        JLabel seatIdExplanation = new JLabel("<html>XX: Destination<br>Y: Category<br>##: Seat No.</html>");
+        seatIdExplanation.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        seatIdExplanation.setBounds(10, 70, 130, 50);
+        legendPanel1.add(seatIdExplanation);
+
+        // Destination Legend
+        JLabel destLabel = new JLabel("Destination Codes:");
+        destLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
+        destLabel.setBounds(10, 130, 130, 25);
+        legendPanel1.add(destLabel);
+
+        JLabel destCodes = new JLabel("<html>AP: Apalit<br>CA: Calumpit<br>MA: Malolos<br>BO: Bocaue</html>");
+        destCodes.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        destCodes.setBounds(10, 150, 130, 60);
+        legendPanel1.add(destCodes);
+
+        // Category Legend
+        JLabel catLabel = new JLabel("Category Codes:");
+        catLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
+        catLabel.setBounds(10, 210, 130, 25);
+        legendPanel1.add(catLabel);
+
+        JLabel catCodes = new JLabel("<html>S: Senior Citizen<br>P: PWD<br>R: Regular</html>");
+        catCodes.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        catCodes.setBounds(10, 230, 130, 50);
+        legendPanel1.add(catCodes);
+        
+        JButton btnfinish = new JButton("FINISH");
+        btnfinish.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		ChoosingForm choosingForm = new ChoosingForm();
+                choosingForm.setVisible(true);
+                dispose();
+        	}
+        });
+        btnfinish.setFont(new Font("Tahoma", Font.BOLD, 12));
+        btnfinish.setBackground(Color.WHITE);
+        btnfinish.setBounds(425, 466, 133, 32);
+        panel.add(btnfinish);
+
+
+        btnaddseat.addActionListener(e -> {
+            if (model.getRowCount() < 40) {
+                String name = textFieldname.getText();
+                String age = textFieldage.getText();
+                String category = (String) comboBox_1.getSelectedItem();
+                String destination = (String) comboBox.getSelectedItem();
+                
+                // Get initials of destination and category
+                String destInitials = destination.substring(0, 2).toUpperCase();
+                String catInitials = category.substring(0, 1).toUpperCase();
+                
+                // Generate seat identifier, e.g., AS01
+                String seatIdentifier = destInitials + catInitials + String.format("%02d", model.getRowCount() + 1);
+
+                model.addRow(new Object[]{name, age, category, destination, seatIdentifier});
+
+                // Clear fields after adding passenger
+                textFieldname.setText("");
+                textFieldage.setText("");
+                comboBox.setSelectedIndex(0);
+                comboBox_1.setSelectedIndex(0);
+            } else {
+                JOptionPane.showMessageDialog(this, "Maximum of 40 seats reached", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        });
+
+
+        btnSearch.addActionListener(e -> {
+            String searchText = textFieldsearch.getText().trim().toLowerCase();
+            boolean found = false;
+
+            for (int i = 0; i < model.getRowCount(); i++) {
+                String passengerName = model.getValueAt(i, 0).toString().toLowerCase();
+                if (passengerName.contains(searchText)) {
+                    String message = "Passenger Found:\n" +
+                                     "Name: " + model.getValueAt(i, 0) + "\n" +
+                                     "Age: " + model.getValueAt(i, 1) + "\n" +
+                                     "Category: " + model.getValueAt(i, 2) + "\n" +
+                                     "Destination: " + model.getValueAt(i, 3) + "\n" +
+                                     "Seat Number: " + model.getValueAt(i, 4);
+                    JOptionPane.showMessageDialog(this, message, "Search Result", JOptionPane.INFORMATION_MESSAGE);
+                    found = true;
+                    break;
+                }
+            }
+            textFieldsearch.setText("");
+
+            if (!found) {
+                JOptionPane.showMessageDialog(this, "Passenger not found", "Search", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+        
+        btnRemoveToSeats.addActionListener(e -> {
+            // Check if a row is selected
+            int selectedRow = table_1.getSelectedRow();
+
+            if (selectedRow >= 0) {
+                // Remove the selected row from the table model
+                model.removeRow(selectedRow);
+                
+                // Update the seat numbers for all rows to keep them in order
+                for (int i = 0; i < model.getRowCount(); i++) {
+                    String destination = model.getValueAt(i, 3).toString();
+                    String category = model.getValueAt(i, 2).toString();
+                    
+                    // Get initials of destination and category
+                    String destInitials = destination.substring(0, 2).toUpperCase();
+                    String catInitials = category.substring(0, 1).toUpperCase();
+                    
+                    // Generate new seat identifier, e.g., AS01, based on the new row index
+                    String seatIdentifier = destInitials + catInitials + String.format("%02d", i + 1);
+                    
+                    // Update the seat identifier for the current row
+                    model.setValueAt(seatIdentifier, i, 4);
+                }
+
+                JOptionPane.showMessageDialog(this, "Passenger removed and seats rearranged.", "Remove Passenger", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                // Show a message if no row is selected
+                JOptionPane.showMessageDialog(this, "Please select a passenger to remove.", "Remove Passenger", JOptionPane.WARNING_MESSAGE);
+            }
+        });
+
+    }
+}
