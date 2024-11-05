@@ -1,3 +1,5 @@
+package meow;
+
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -321,29 +323,44 @@ public class PassengerForm extends JFrame {
 
 
         btnSearch.addActionListener(e -> {
-            String searchText = textFieldsearch.getText().trim().toLowerCase();
+            String searchText = textFieldsearch.getText().trim().toUpperCase(); // Convert input to uppercase for matching initials
             boolean found = false;
 
+            // Create a temporary model for search results
+            DefaultTableModel tempModel = new DefaultTableModel();
+            tempModel.setColumnIdentifiers(new Object[] {"NAME", "AGE", "CATEGORY"}); // Only show Name, Age, and Category columns
+
             for (int i = 0; i < model.getRowCount(); i++) {
-                String passengerName = model.getValueAt(i, 0).toString().toLowerCase();
-                if (passengerName.contains(searchText)) {
-                    String message = "Passenger Found:\n" +
-                                     "Name: " + model.getValueAt(i, 0) + "\n" +
-                                     "Age: " + model.getValueAt(i, 1) + "\n" +
-                                     "Category: " + model.getValueAt(i, 2) + "\n" +
-                                     "Destination: " + model.getValueAt(i, 3) + "\n" +
-                                     "Seat Number: " + model.getValueAt(i, 4);
-                    JOptionPane.showMessageDialog(this, message, "Search Result", JOptionPane.INFORMATION_MESSAGE);
+                String destination = model.getValueAt(i, 3).toString().toUpperCase();
+                String initials = destination.substring(0, 2); // Get initials of destination
+
+                if (initials.equals(searchText)) {  // Match initials
+                    // Add matching row to the temporary model
+                    tempModel.addRow(new Object[]{
+                        model.getValueAt(i, 0), // NAME
+                        model.getValueAt(i, 1), // AGE
+                        model.getValueAt(i, 2)  // CATEGORY
+                    });
                     found = true;
-                    break;
                 }
             }
-            textFieldsearch.setText("");
 
-            if (!found) {
-                JOptionPane.showMessageDialog(this, "Passenger not found", "Search", JOptionPane.INFORMATION_MESSAGE);
+            if (found) {
+                // Set the temporary model to the table and display the destination initials
+                table_1.setModel(tempModel);
+                lblDestination.setText("Destination: " + searchText);
+            } else {
+                JOptionPane.showMessageDialog(this, "No matching destination found.", "Search Result", JOptionPane.INFORMATION_MESSAGE);
+                
+                // Reset the table and clear the label if no match is found
+                table_1.setModel(model);
+                lblDestination.setText("");
             }
+
+            textFieldsearch.setText("");  // Clear search field after search
         });
+
+
         
         btnRemoveToSeats.addActionListener(e -> {
             // Check if a row is selected
